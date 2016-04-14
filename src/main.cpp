@@ -2,6 +2,7 @@
 #include "Config.h"
 #include "ByteBuffer.h"
 #include "decode.h"
+#include "encode.h"
 #include <iostream>
 #include <string>
 using namespace td_proto;

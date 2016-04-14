@@ -314,6 +314,45 @@ namespace td_proto {
 		Values& operator= (Values&& other) {
 			move(other);
 		}
+
+		std::vector<Values>* get_array_value() {
+			switch (this->sub_type)
+			{
+			case TYPE_AU8:
+				return this->_au8;
+				break;
+			case TYPE_AI8:
+				return this->_ai8;
+				break;
+			case TYPE_AU16:
+				return this->_au16;
+				break;
+			case TYPE_AI16:
+				return this->_ai16;
+				break;
+			case TYPE_AU32:
+				return this->_au32;
+				break;
+			case TYPE_AI32:
+				return this->_ai32;
+				break;
+			case TYPE_AFLOAT:
+				return this->_af;
+				break;
+			case TYPE_ASTR:
+				return this->_astr;
+				break;
+			case TYPE_ARAW:
+				return this->_araw;
+				break;
+			case TYPE_AMAP:
+				return this->_amap;
+				break;
+			default:
+				break;
+			}
+			return nullptr;
+		}
 	};
 
 }
