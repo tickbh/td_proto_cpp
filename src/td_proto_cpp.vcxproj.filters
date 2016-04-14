@@ -24,5 +24,8 @@
   <ItemGroup>
     <ClInclude Include="Values.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="ByteBuffer.h" />
+    <ClInclude Include="decode.h" />
+    <ClInclude Include="encode.h" />
   </ItemGroup>
 </Project>

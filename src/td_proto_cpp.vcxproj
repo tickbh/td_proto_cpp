@@ -76,7 +76,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ByteBuffer.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="decode.h" />
+    <ClInclude Include="encode.h" />
     <ClInclude Include="Values.h" />
   </ItemGroup>
   <ItemGroup>

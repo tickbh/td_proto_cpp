@@ -1,5 +1,7 @@
 #include "Values.h"
 #include "Config.h"
+#include "ByteBuffer.h"
+#include "decode.h"
 #include <iostream>
 #include <string>
 using namespace td_proto;
