@@ -251,17 +251,19 @@ public:
 		other.sub_type = TYPE_NIL;
 	}
 
-
+	Values(Values& other) {
+		move(other);
+	}
 	Values(Values&& other)
 	{
 		move(other);
 	}
-
+	Values& operator= (Values& other) {
+		move(other);
+	}
 	Values& operator= (Values&& other) {
 		move(other);
 	}
-	Values(Values& value) = delete;
-
 };
 
 }

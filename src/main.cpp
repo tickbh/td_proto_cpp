@@ -1,4 +1,5 @@
 #include "Values.h"
+#include "Config.h"
 #include <iostream>
 #include <string>
 using namespace td_proto;
@@ -18,9 +19,9 @@ int main(int argc, char *argv[]) {
 		//test(strValue1);
 
 
-		std::cout << "aaaa" << std::endl;
+		//std::cout << "aaaa" << std::endl;
 		//Values v = std::move(strValue1);
-		//Values v = strValue1;
+		Values v = strValue1;
 	}
 	std::cout << "....." << std::endl;
 }

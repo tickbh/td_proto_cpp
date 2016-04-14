@@ -19,8 +19,10 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Config.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Values.h" />
+    <ClInclude Include="Config.h" />
   </ItemGroup>
 </Project>

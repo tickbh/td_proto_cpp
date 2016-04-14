@@ -76,9 +76,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Config.h" />
     <ClInclude Include="Values.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Config.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Values.cpp" />
   </ItemGroup>
