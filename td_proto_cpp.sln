@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "td_proto_cpp", "td_proto_cpp\td_proto_cpp.vcxproj", "{B74110E9-2B80-47AB-AB47-1CF7887FF657}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "td_proto_cpp", "src\td_proto_cpp.vcxproj", "{B74110E9-2B80-47AB-AB47-1CF7887FF657}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
