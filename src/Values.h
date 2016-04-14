@@ -136,37 +136,132 @@ public:
 			break;
 		}
 	}
-
-	//explicit Values(std::vector<Values>* _au8) : sub_type(TYPE_AU8), _au8(_au8) {
-	//}
-	//explicit Values(std::vector<Values>* _ai8) : sub_type(TYPE_AI8), _ai8(_ai8) {
-	//}
-	//explicit Values(std::vector<Values>* _au16) : sub_type(TYPE_AU16), _au16(_au16) {
-	//}
-	//explicit Values(std::vector<Values>* _ai16) : sub_type(TYPE_AI16), _ai16(_ai16) {
-	//}
-	//explicit Values(std::vector<Values>* _au32) : sub_type(TYPE_AU32), _au32(_au32) {
-	//}
-	//explicit Values(std::vector<Values>* _ai32) : sub_type(TYPE_AI32), _ai32(_ai32) {
-	//}
-	//explicit Values(std::vector<Values>* _af) : sub_type(TYPE_AFLOAT), _af(_af) {
-	//}
-	//explicit Values(std::vector<Values>* _astr) : sub_type(TYPE_ASTR), _astr(_astr) {
-	//}
-	//explicit Values(std::vector<Values>* _araw) : sub_type(TYPE_ARAW), _araw(_araw) {
-	//}
-	//explicit Values(std::vector<Values>* _amap) : sub_type(TYPE_AMAP), _amap(_amap) {
-	//}
 	~Values() {
 		switch (this->sub_type)
 		{
 		case TYPE_STR:
 			delete _str;
 			break;
+		case TYPE_RAW:
+			delete _raw;
+			break;
+		case TYPE_MAP:
+			delete _map;
+			break;
+		case TYPE_AU8:
+			delete _au8;
+			break;
+		case TYPE_AI8:
+			delete _ai8;
+			break;
+		case TYPE_AU16:
+			delete _au16;
+			break;
+		case TYPE_AU32:
+			delete _au32;
+			break;
+		case TYPE_AI32:
+			delete _ai32;
+			break;
+		case TYPE_AFLOAT:
+			delete _af;
+			break;
+		case TYPE_ASTR:
+			delete _astr;
+			break;
+		case TYPE_ARAW:
+			delete _araw;
+			break;
+		case TYPE_AMAP:
+			delete _amap;
+			break;
 		default:
 			break;
 		}
 	}
+
+	void move(Values& other)
+	{
+		this->sub_type = other.sub_type;
+		switch (other.sub_type)
+		{
+		case TYPE_U8:
+			this->_u8 = other._u8;
+			break;
+		case TYPE_I8:
+			this->_i8 = other._i8;
+			break;
+		case TYPE_U16:
+			this->_u16 = other._u16;
+			break;
+		case TYPE_I16:
+			this->_i16 = other._i16;
+			break;
+		case TYPE_U32:
+			this->_u32 = other._u32;
+			break;
+		case TYPE_I32:
+			this->_i32 = other._i32;
+			break;
+		case TYPE_FLOAT:
+			this->_f = other._f;
+			break;
+		case TYPE_STR:
+			this->_str = other._str;
+			break;
+		case TYPE_RAW:
+			this->_raw = other._raw;
+			break;
+		case TYPE_MAP:
+			this->_map = other._map;
+			break;
+		case TYPE_AU8:
+			this->_au8 = other._au8;
+			break;
+		case TYPE_AI8:
+			this->_ai8 = other._ai8;
+			break;
+		case TYPE_AU16:
+			this->_au16 = other._au16;
+			break;
+		case TYPE_AI16:
+			this->_ai16 = other._ai16;
+			break;
+		case TYPE_AU32:
+			this->_au32 = other._au32;
+			break;
+		case TYPE_AI32:
+			this->_ai32 = other._ai32;
+			break;
+		case TYPE_AFLOAT:
+			this->_af = other._af;
+			break;
+		case TYPE_ASTR:
+			this->_astr = other._astr;
+			break;
+		case TYPE_ARAW:
+			this->_araw = other._araw;
+			break;
+		case TYPE_AMAP:
+			this->_amap = other._amap;
+			break;
+		default:
+			break;
+		}
+		other.sub_type = TYPE_NIL;
+	}
+
+
+	Values(Values&& other)
+	{
+		move(other);
+	}
+
+	Values& operator= (Values&& other) {
+		move(other);
+	}
+	Values(Values& value) = delete;
+
 };
 
 }
