@@ -146,44 +146,25 @@ void test_encode_map() {
 	value_map.unfree();
 }
 
+void test_encode_array_u8() {
+	auto config = td_proto::Config();
+	auto buffer = td_proto::Buffer();
+	std::vector<td_proto::Values> u8array;
+	for (int i = 0; i < 10; i++) {
+		u8array.push_back(td_proto::Values((u8)i));
+	}
+	auto array = td_proto::Values(&u8array, td_proto::TYPE_AU8);
+	td_proto::encode_field(buffer, config, array);
 
-//#[test]
-//fn test_encode_map() {
-//	let config = td_rp::Config::new(" { \"name\" : { \"index\" :    1, \"pattern\" : \"string\" }, \
-//																		                                        \"index\" : { \"index\" :    2, \"pattern\" : \"u16\" },  \
-//																																															                                        \"sub_name\" : { \"index\" :    3, \"pattern\" :\"string\" }   }",
-//																																																									"{\"cmd_test_op\"        : { \"msg_type\" :    \"server\", \"args\" : [ \"map\" ] }}");
-//	let config = config.unwrap();
-//	let mut hash_value = HashMap::<String, Value>::new();
-//	hash_value.insert("name".to_string(), Value::Str("I'm a chinese people".to_string()));
-//	hash_value.insert("sub_name".to_string(), Value::Str("tickdream".to_string()));
-//	hash_value.insert("index".to_string(), Value::U16(1 as u16));
-//	{
-//		let mut buffer = Buffer::new();
-//		td_rp::encode_field(&mut buffer, &config, &Value::Map(hash_value.clone())).unwrap();
-//
-//		// just read field
-//		let read = td_rp::decode_field(&mut buffer, &config).unwrap();
-//		match read{
-//			Value::Map(val) = > assert_eq!(val, hash_value),
-//			_ = > unreachable!("it will not read"),
-//		}
-//	}
-//
-//	let mut undefine = hash_value.clone();
-//	undefine.insert("undefine".to_string(), Value::U16(1 as u16));
-//	{
-//		let mut buffer = Buffer::new();
-//		td_rp::encode_field(&mut buffer, &config, &Value::Map(undefine.clone())).unwrap();
-//
-//		// just read field
-//		let read = td_rp::decode_field(&mut buffer, &config).unwrap();
-//		match read{
-//			Value::Map(val) = > assert_eq!(val, hash_value),
-//			_ = > unreachable!("it will not read"),
-//		}
-//	}
-//}
+	auto read = td_proto::decode_field(buffer, config);
+	assert(read.sub_type == td_proto::TYPE_AU8);
+	auto i = 0;
+	for (auto& iter : *read._au8) {
+		assert(iter._u8 == (u8)i++);
+	}
+	array.unfree();
+}
+
 //
 //#[test]
 //fn test_encode_array_u8() {
@@ -256,4 +237,5 @@ int main(int argc, char *argv[]) {
 	test_encode_float();
 	test_encode_str();
 	test_encode_map();
+	test_encode_array_u8();
 }
