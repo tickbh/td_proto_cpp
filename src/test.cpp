@@ -184,8 +184,6 @@ void test_base_proto() {
 	auto value_map = td_proto::Values(hash_value);
 	std::vector<td_proto::Values> array;
 	array.push_back(std::move(value_map));
-	//td_proto::Values array(new std::vector<td_proto::Values>, td_proto::TYPE_AMAP);
-	//array._array->push_back(value_map);
 	td_proto::encode_proto(buffer, config, "cmd_test_op", array);
 
 	auto ret = td_proto::decode_proto(buffer, config);
