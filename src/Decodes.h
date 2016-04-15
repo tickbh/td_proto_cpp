@@ -59,10 +59,9 @@ namespace td_proto {
 				return Values(new std::string());
 			}
 			
-			u8* value = new u8[len + 1];
+			u8* value = new u8[len];
 			buffer.read(value, len);
-			value[len] = '\0';
-			std::string* str = new std::string((const char*)value, len + 1);
+			std::string* str = new std::string((const char*)value, len);
 			delete[] value;
 			return Values(str);
 		}
@@ -177,17 +176,17 @@ namespace td_proto {
 			CHECK_BREAK_BUFFER_VAILD();
 			value.push_back(std::move(sub_value));
 		}
-		auto result = std::make_pair(*name_value._str, std::move(value));
+
 		auto proto = config.get_proto_by_name(*name_value._str);
 		if (proto == NULL) {
 			buffer.setVaild(false);
-			return std::move(result);
+			return std::move(std::make_pair(*name_value._str, std::move(value)));
 		}
 		if (proto->args.size() != value.size()) {
 			buffer.setVaild(false);
-			return std::move(result);
+			return std::move(std::make_pair(*name_value._str, std::move(value)));
 		}
-		return std::move(result);
+		return std::move(std::make_pair(*name_value._str, std::move(value)));
 
 	}
 

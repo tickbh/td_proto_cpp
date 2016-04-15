@@ -48,8 +48,8 @@ namespace td_proto {
 		}
 
 		Proto(const Proto& other) {
-			this->msg_type = msg_type;
-			this->args = args;
+			this->msg_type = other.msg_type;
+			this->args = other.args;
 		}
 
 	};

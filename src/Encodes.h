@@ -157,6 +157,24 @@ namespace td_proto {
 		return buffer.isVaild();
 	}
 
+	bool encode_proto(Buffer& buffer, Config& config, std::string name, std::vector<Values>& infos) {
+		auto proto = config.get_proto_by_name(name);
+		if (!proto) {
+			return false;
+		}
+		if (proto->args.size() != infos.size()) {
+			return false;
+		}
+		encode_str_raw(buffer, Values(new std::string(name)));
+		for (auto& iter : infos) {
+			if (!encode_field(buffer, config, iter)) {
+				continue;
+			}
+		}
+		write_str_field(buffer, STR_TYPE_NIL);
+		return true;
+	}
+
 }
 
 #endif
