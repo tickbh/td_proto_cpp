@@ -51,7 +51,15 @@ namespace td_proto {
 	const char* STR_TYPE_ARAW = "raw[]";
 	const char* STR_TYPE_AMAP = "map[]";
 
-	static std::map<const char*, u16> HASH_STR_INT = {
+	struct cmp_str
+	{
+		bool operator()(char const *a, char const *b)
+		{
+			return std::strcmp(a, b) < 0;
+		}
+	};
+
+	static std::map<const char*, u16, cmp_str> HASH_STR_INT = {
 		{ STR_TYPE_U8, TYPE_U8 },
 		{ STR_TYPE_I8, TYPE_I8 },
 		{ STR_TYPE_U16, TYPE_U16 },
@@ -313,6 +321,11 @@ namespace td_proto {
 		}
 		Values& operator= (Values&& other) {
 			move(other);
+		}
+
+		//当指针引用的栈变量的时候，我们不能析构这个指针
+		void unfree() {
+			this->sub_type = TYPE_NIL;
 		}
 
 		std::vector<Values>* get_array_value() {

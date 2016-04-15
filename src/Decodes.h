@@ -13,9 +13,9 @@ namespace td_proto {
 	break; \
 }
 
-	Values decode_field(ByteBuffer& buffer, Config& config);
+	Values decode_field(Buffer& buffer, Config& config);
 
-	Values decode_number(ByteBuffer& buffer, u16 pattern) {
+	Values decode_number(Buffer& buffer, u16 pattern) {
 		CHECK_RETURN_BUFFER_VAILD(Values());
 		switch (pattern)
 		{
@@ -42,14 +42,14 @@ namespace td_proto {
 		return Values();
 	}
 	
-	Field read_field(ByteBuffer& buffer) {
+	Field read_field(Buffer& buffer) {
 		CHECK_RETURN_BUFFER_VAILD(Field(0, TYPE_NIL));
 		auto index = decode_number(buffer, TYPE_U16)._u16;
 		auto pattern = decode_number(buffer, TYPE_U16)._u16;
 		return Field(index, get_name_by_type(pattern));
 	}
 
-	Values decode_str_raw(ByteBuffer& buffer, u16 pattern) {
+	Values decode_str_raw(Buffer& buffer, u16 pattern) {
 		CHECK_RETURN_BUFFER_VAILD(Values());
 		switch (pattern)
 		{
@@ -59,9 +59,10 @@ namespace td_proto {
 				return Values(new std::string());
 			}
 			
-			u8* value = new u8[len];
+			u8* value = new u8[len + 1];
 			buffer.read(value, len);
-			std::string* str = new std::string((const char*)value, len);
+			value[len] = '\0';
+			std::string* str = new std::string((const char*)value, len + 1);
 			delete[] value;
 			return Values(str);
 		}
@@ -84,7 +85,7 @@ namespace td_proto {
 		return Values();
 	}
 
-	Values decode_map(ByteBuffer& buffer, Config& config) {
+	Values decode_map(Buffer& buffer, Config& config) {
 		CHECK_RETURN_BUFFER_VAILD(Values());
 		auto map = new std::map<std::string, Values>();
 		while (true) {
@@ -103,7 +104,7 @@ namespace td_proto {
 		return Values();
 	}
 
-	Values decode_arrays(ByteBuffer& buffer, Config& config, u16 pattern, u16 sub_type) {
+	Values decode_arrays(Buffer& buffer, Config& config, u16 pattern, u16 sub_type) {
 		CHECK_RETURN_BUFFER_VAILD(Values());
 		auto value = new std::vector<Values>();
 		while (true) {
@@ -121,7 +122,7 @@ namespace td_proto {
 		return Values(value, (u8)pattern);
 	}
 
-	Values decode_by_field(ByteBuffer& buffer, Config& config, Field& field) {
+	Values decode_by_field(Buffer& buffer, Config& config, Field& field) {
 		CHECK_RETURN_BUFFER_VAILD(Values());
 		auto t = get_type_by_name(field.pattern.c_str());
 		switch (t)
@@ -155,7 +156,7 @@ namespace td_proto {
 		}
 	}
 
-	Values decode_field(ByteBuffer& buffer, Config& config) {
+	Values decode_field(Buffer& buffer, Config& config) {
 		CHECK_RETURN_BUFFER_VAILD(Values());
 		auto field = read_field(buffer);
 		if (field.is_nil_type()) {
@@ -164,7 +165,7 @@ namespace td_proto {
 		return decode_by_field(buffer, config, field);
 	}
 
-	std::tuple<std::string, std::vector<Values>> decode_proto(ByteBuffer& buffer, Config& config) {
+	std::tuple<std::string, std::vector<Values>> decode_proto(Buffer& buffer, Config& config) {
 		auto name_value = decode_str_raw(buffer, TYPE_STR);
 		std::vector<Values> value;
 		while (true)

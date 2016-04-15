@@ -11,12 +11,15 @@ namespace td_proto {
 	public:
 		u16 index;
 		std::string pattern;
+		Field() : index(TYPE_NIL), pattern("") {
+
+		}
 		Field(u16 index, std::string pattern)
 			: index(index), pattern(pattern) {
 
 		}
 
-		Field(Field& other) {
+		Field(const Field& other) {
 			this->index = other.index;
 			this->pattern = other.pattern;
 		}
@@ -44,7 +47,7 @@ namespace td_proto {
 
 		}
 
-		Proto(Proto& other) {
+		Proto(const Proto& other) {
 			this->msg_type = msg_type;
 			this->args = args;
 		}
@@ -89,7 +92,7 @@ namespace td_proto {
 
 		std::string get_field_index_name(u16& index) {
 			auto iter = this->index_field.find(index);
-			if (iter != this->index_field.end()) {
+			if (iter == this->index_field.end()) {
 				return "";
 			}
 			return iter->second;
@@ -97,7 +100,7 @@ namespace td_proto {
 
 		std::string get_proto_msg_type(std::string& name) {
 			auto iter = this->msg_proto.find(name);
-			if (iter != this->msg_proto.end()) {
+			if (iter == this->msg_proto.end()) {
 				return "";
 			}
 			return iter->second;
@@ -105,7 +108,7 @@ namespace td_proto {
 
 		Proto* get_proto_by_name(std::string& name) {
 			auto iter = this->proto.find(name);
-			if (iter != this->proto.end()) {
+			if (iter == this->proto.end()) {
 				return nullptr;
 			}
 			return iter->second;

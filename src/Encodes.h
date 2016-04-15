@@ -1,12 +1,12 @@
 #ifndef _TD_PROTO_ENCODE_H_
 #define _TD_PROTO_ENCODE_H_
-#include "ByteBuffer.h"
+#include "Buffer.h"
 #include "Values.h"
 namespace td_proto {
 
-	bool encode_field(ByteBuffer& buffer, Config& config, Values& value);
+	bool encode_field(Buffer& buffer, Config& config, Values& value);
 
-	bool encode_number(ByteBuffer& buffer, Values& value) {
+	bool encode_number(Buffer& buffer, Values& value) {
 		switch (value.sub_type)
 		{
 		case TYPE_U8:
@@ -39,13 +39,13 @@ namespace td_proto {
 	}
 
 
-	bool write_str_field(ByteBuffer& buffer, const char* pattern) {
+	bool write_str_field(Buffer& buffer, const char* pattern) {
 		encode_number(buffer, Values((u16)0));
 		encode_number(buffer, Values((u16)get_type_by_name(pattern)));
 		return true;
 	}
 
-	bool write_field(ByteBuffer& buffer, Field* field) {
+	bool write_field(Buffer& buffer, Field* field) {
 		if (field == nullptr) {
 			return false;
 		}
@@ -54,7 +54,7 @@ namespace td_proto {
 		return true;
 	}
 
-	bool encode_str_raw(ByteBuffer& buffer, Values& value) {
+	bool encode_str_raw(Buffer& buffer, Values& value) {
 		switch (value.sub_type)
 		{
 		case TYPE_STR:
@@ -71,16 +71,16 @@ namespace td_proto {
 		return true;
 	}
 
-	bool encode_map(ByteBuffer& buffer, Config& config, Values& value) {
+	bool encode_map(Buffer& buffer, Config& config, Values& value) {
 		switch (value.sub_type) {
 		case TYPE_MAP: {
-			for (auto iter : *value._map) {
+			for (auto& iter : *value._map) {
 				auto name = iter.first;
 				if (write_field(buffer, config.get_field_by_name(name))) {
 					encode_field(buffer, config, iter.second);
 				}
-				write_str_field(buffer, STR_TYPE_NIL);
 			}
+			write_str_field(buffer, STR_TYPE_NIL);
 		}
 			break;
 		default:
@@ -89,7 +89,7 @@ namespace td_proto {
 		return true;
 	}
 
-	bool encode_field(ByteBuffer& buffer, Config& config, Values& value) {
+	bool encode_field(Buffer& buffer, Config& config, Values& value) {
 		write_str_field(buffer, get_name_by_type(value.sub_type));
 		switch (value.sub_type)
 		{
@@ -122,7 +122,7 @@ namespace td_proto {
 			auto must_type = value.sub_type + TYPE_U8 - TYPE_AU8;
 			auto arrays = value.get_array_value();
 			if (arrays) {
-				for (auto iter : *arrays) {
+				for (auto& iter : *arrays) {
 					if (iter.sub_type != must_type) {
 						buffer.setVaild(false);
 						return false;
@@ -140,7 +140,7 @@ namespace td_proto {
 		return true;
 	}
 
-	bool encode_field(ByteBuffer& buffer, Config& config, std::string& name, std::vector<Values>& infos) {
+	bool encode_field(Buffer& buffer, Config& config, std::string& name, std::vector<Values>& infos) {
 		auto proto = config.get_proto_by_name(name);
 		if (!proto) {
 			return false;
@@ -149,7 +149,7 @@ namespace td_proto {
 			return false;
 		}
 		encode_str_raw(buffer, Values(new std::string(name)));
-		for (auto iter : infos)
+		for (auto& iter : infos)
 		{
 			encode_field(buffer, config, iter);
 		}

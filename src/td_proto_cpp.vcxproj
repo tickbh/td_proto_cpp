@@ -76,16 +76,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ByteBuffer.h" />
+    <ClInclude Include="Buffer.h" />
     <ClInclude Include="Config.h" />
-    <ClInclude Include="decode.h" />
-    <ClInclude Include="encode.h" />
+    <ClInclude Include="Decodes.h" />
+    <ClInclude Include="Encodes.h" />
+    <ClInclude Include="TDMacro.h" />
     <ClInclude Include="Values.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Config.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Values.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

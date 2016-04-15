@@ -15,17 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Values.cpp" />
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Config.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Values.h" />
     <ClInclude Include="Config.h" />
-    <ClInclude Include="ByteBuffer.h" />
-    <ClInclude Include="decode.h" />
-    <ClInclude Include="encode.h" />
+    <ClInclude Include="Buffer.h" />
+    <ClInclude Include="TDMacro.h" />
+    <ClInclude Include="Decodes.h" />
+    <ClInclude Include="Encodes.h" />
   </ItemGroup>
 </Project>
