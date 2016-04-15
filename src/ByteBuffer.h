@@ -299,21 +299,6 @@ public:
 		_rpos += len;
 	}
 
-	std::string readString(int len)
-	{
-		std::string str;
-		if (len > 1000000 || len > this->size()) {
-			len = 1;
-		}
-		u8* value = new u8[len];
-		this->read(value, len);
-		if (this->isVaild()) {
-			str = std::string((const char*)value, len);
-		}
-		delete[] value;
-		return str;
-	}
-
 	const u8 *contents() const { return &_storage[0]; }
 
 	size_t size() const { return _storage.size(); }

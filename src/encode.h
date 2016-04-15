@@ -77,7 +77,7 @@ namespace td_proto {
 			for (auto iter : *value._map) {
 				auto name = iter.first;
 				if (write_field(buffer, config.get_field_by_name(name))) {
-					//encode_field(buffer, config, sub_value)
+					encode_field(buffer, config, iter.second);
 				}
 				write_str_field(buffer, STR_TYPE_NIL);
 			}
@@ -154,7 +154,7 @@ namespace td_proto {
 			encode_field(buffer, config, iter);
 		}
 		write_str_field(buffer, STR_TYPE_NIL);
-		return true;
+		return buffer.isVaild();
 	}
 
 }
