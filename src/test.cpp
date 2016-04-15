@@ -6,11 +6,6 @@
 #include <iostream>
 #include <string>
 
-int test(td_proto::Values value){
-	std::cout << "xxxxxxxxxxx" << std::endl;
-	return 0;
-}
-
 void test_head_field(td_proto::Buffer& buffer, u16 index, u16 t) {
 	u8 data[2] = { 0, 0 };
 	buffer.read(data, 2);
@@ -22,7 +17,6 @@ void test_head_field(td_proto::Buffer& buffer, u16 index, u16 t) {
 	assert(buffer.isVaild());
 	auto val_t = td_proto::ByteGetValue<u16>((char *)data);
 	assert(val_t == t);
-
 }
 
 void test_enocde_u8() {
@@ -40,6 +34,7 @@ void test_enocde_u8() {
 	auto ret = td_proto::decode_field(buffer, config);
 	assert(buffer.isVaild() && ret.sub_type == td_proto::TYPE_U8);
 	assert(ret._u8 == 1);
+	std::cout << "success test test_enocde_u8" << std::endl;
 }
 
 void test_encode_u16() {
@@ -58,6 +53,7 @@ void test_encode_u16() {
 	auto ret = td_proto::decode_field(buffer, config);
 	assert(buffer.isVaild() && ret.sub_type == td_proto::TYPE_U16);
 	assert(ret._u16 == 0x1234);
+	std::cout << "success test test_encode_u16" << std::endl;
 }
 
 void test_encode_u32() {
@@ -78,6 +74,7 @@ void test_encode_u32() {
 	auto ret = td_proto::decode_field(buffer, config);
 	assert(buffer.isVaild() && ret.sub_type == td_proto::TYPE_U32);
 	assert(ret._u32 == 0x12345678);
+	std::cout << "success test test_encode_u32" << std::endl;
 }
 
 void test_encode_float() {
@@ -97,6 +94,7 @@ void test_encode_float() {
 	auto ret = td_proto::decode_field(buffer, config);
 	assert(buffer.isVaild() && ret.sub_type == td_proto::TYPE_FLOAT);
 	assert(std::fabs(ret._f - 12345.123) < 0.001);
+	std::cout << "success test test_encode_float" << std::endl;
 }
 
 void test_encode_str() {
@@ -120,6 +118,7 @@ void test_encode_str() {
 	auto ret = td_proto::decode_field(buffer, config);
 	assert(buffer.isVaild() && ret.sub_type == td_proto::TYPE_STR);
 	assert(strcmp(name, ret._str->c_str()) == 0);
+	std::cout << "success test test_encode_str" << std::endl;
 }
 
 void test_encode_map() {
@@ -144,6 +143,7 @@ void test_encode_map() {
 	assert(strcmp(ret._map->at("name")._str->c_str(), hash_value.at("name")._str->c_str()) == 0);
 	assert(ret._map->at("index")._u16 == hash_value.at("index")._u16);
 	value_map.unfree();
+	std::cout << "success test test_encode_map" << std::endl;
 }
 
 void test_encode_array_u8() {
@@ -163,6 +163,7 @@ void test_encode_array_u8() {
 		assert(iter._u8 == (u8)i++);
 	}
 	array.unfree();
+	std::cout << "success test test_encode_array_u8" << std::endl;
 }
 
 void test_base_proto() {
@@ -194,6 +195,7 @@ void test_base_proto() {
 	assert(val[0]._map->size() == 2);
 	assert(strcmp(val[0]._map->at("name")._str->c_str(), hash_value->at("name")._str->c_str()) == 0);
 	assert(val[0]._map->at("index")._u16 == hash_value->at("index")._u16);
+	std::cout << "success test test_base_proto" << std::endl;
 }
 
 int main(int argc, char *argv[]) {
