@@ -121,16 +121,7 @@ namespace td_proto {
 			std::string* _str;
 			std::vector<char>* _raw;
 			std::map<std::string, Values>* _map;
-			std::vector<Values>* _au8;
-			std::vector<Values>* _ai8;
-			std::vector<Values>* _au16;
-			std::vector<Values>* _ai16;
-			std::vector<Values>* _au32;
-			std::vector<Values>* _ai32;
-			std::vector<Values>* _af;
-			std::vector<Values>* _astr;
-			std::vector<Values>* _araw;
-			std::vector<Values>* _amap;
+			std::vector<Values>* _array;
 		};
 
 		explicit Values() : sub_type(TYPE_NIL) {
@@ -160,34 +151,16 @@ namespace td_proto {
 			switch (sub_type)
 			{
 			case TYPE_AU8:
-				_au8 = arrays;
-				break;
 			case TYPE_AI8:
-				_ai8 = arrays;
-				break;
 			case TYPE_AU16:
-				_au16 = arrays;
-				break;
 			case TYPE_AI16:
-				_ai16 = arrays;
-				break;
 			case TYPE_AU32:
-				_au32 = arrays;
-				break;
 			case TYPE_AI32:
-				_ai32 = arrays;
-				break;
 			case TYPE_AFLOAT:
-				_af = arrays;
-				break;
 			case TYPE_ASTR:
-				_astr = arrays;
-				break;
 			case TYPE_ARAW:
-				_araw = arrays;
-				break;
 			case TYPE_AMAP:
-				_amap = arrays;
+				_array = arrays;
 				break;
 			default:
 				sub_type = TYPE_NIL;
@@ -207,31 +180,15 @@ namespace td_proto {
 				delete _map;
 				break;
 			case TYPE_AU8:
-				delete _au8;
-				break;
 			case TYPE_AI8:
-				delete _ai8;
-				break;
 			case TYPE_AU16:
-				delete _au16;
-				break;
 			case TYPE_AU32:
-				delete _au32;
-				break;
 			case TYPE_AI32:
-				delete _ai32;
-				break;
 			case TYPE_AFLOAT:
-				delete _af;
-				break;
 			case TYPE_ASTR:
-				delete _astr;
-				break;
 			case TYPE_ARAW:
-				delete _araw;
-				break;
 			case TYPE_AMAP:
-				delete _amap;
+				delete _array;
 				break;
 			default:
 				break;
@@ -274,34 +231,16 @@ namespace td_proto {
 				this->_map = other._map;
 				break;
 			case TYPE_AU8:
-				this->_au8 = other._au8;
-				break;
 			case TYPE_AI8:
-				this->_ai8 = other._ai8;
-				break;
 			case TYPE_AU16:
-				this->_au16 = other._au16;
-				break;
 			case TYPE_AI16:
-				this->_ai16 = other._ai16;
-				break;
 			case TYPE_AU32:
-				this->_au32 = other._au32;
-				break;
 			case TYPE_AI32:
-				this->_ai32 = other._ai32;
-				break;
 			case TYPE_AFLOAT:
-				this->_af = other._af;
-				break;
 			case TYPE_ASTR:
-				this->_astr = other._astr;
-				break;
 			case TYPE_ARAW:
-				this->_araw = other._araw;
-				break;
 			case TYPE_AMAP:
-				this->_amap = other._amap;
+				this->_array = other._array;
 				break;
 			default:
 				break;
@@ -326,45 +265,6 @@ namespace td_proto {
 		//当指针引用的栈变量的时候，我们不能析构这个指针
 		void unfree() {
 			this->sub_type = TYPE_NIL;
-		}
-
-		std::vector<Values>* get_array_value() {
-			switch (this->sub_type)
-			{
-			case TYPE_AU8:
-				return this->_au8;
-				break;
-			case TYPE_AI8:
-				return this->_ai8;
-				break;
-			case TYPE_AU16:
-				return this->_au16;
-				break;
-			case TYPE_AI16:
-				return this->_ai16;
-				break;
-			case TYPE_AU32:
-				return this->_au32;
-				break;
-			case TYPE_AI32:
-				return this->_ai32;
-				break;
-			case TYPE_AFLOAT:
-				return this->_af;
-				break;
-			case TYPE_ASTR:
-				return this->_astr;
-				break;
-			case TYPE_ARAW:
-				return this->_araw;
-				break;
-			case TYPE_AMAP:
-				return this->_amap;
-				break;
-			default:
-				break;
-			}
-			return nullptr;
 		}
 	};
 

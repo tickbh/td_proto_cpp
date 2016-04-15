@@ -159,7 +159,7 @@ void test_encode_array_u8() {
 	auto read = td_proto::decode_field(buffer, config);
 	assert(read.sub_type == td_proto::TYPE_AU8);
 	auto i = 0;
-	for (auto& iter : *read._au8) {
+	for (auto& iter : *read._array) {
 		assert(iter._u8 == (u8)i++);
 	}
 	array.unfree();

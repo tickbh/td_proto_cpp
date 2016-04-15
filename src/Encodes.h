@@ -120,7 +120,7 @@ namespace td_proto {
 		case TYPE_ARAW:
 		case TYPE_AMAP: {
 			auto must_type = value.sub_type + TYPE_U8 - TYPE_AU8;
-			auto arrays = value.get_array_value();
+			auto arrays = value._array;
 			if (arrays) {
 				for (auto& iter : *arrays) {
 					if (iter.sub_type != must_type) {
