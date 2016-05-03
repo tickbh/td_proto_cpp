@@ -13,18 +13,33 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Values.h" />
-    <ClInclude Include="Config.h" />
-    <ClInclude Include="Buffer.h" />
-    <ClInclude Include="TDMacro.h" />
-    <ClInclude Include="Decodes.h" />
-    <ClInclude Include="Encodes.h" />
+    <Filter Include="include">
+      <UniqueIdentifier>{c928e02c-116a-4c98-a076-8afafe9943aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Encodes.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TDMacro.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Values.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Buffer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Config.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Decodes.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

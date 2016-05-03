@@ -41,6 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)../include/;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -76,15 +77,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Buffer.h" />
-    <ClInclude Include="Config.h" />
-    <ClInclude Include="Decodes.h" />
-    <ClInclude Include="Encodes.h" />
-    <ClInclude Include="TDMacro.h" />
-    <ClInclude Include="Values.h" />
+    <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test.cpp" />
+    <ClInclude Include="..\include\Buffer.h" />
+    <ClInclude Include="..\include\Config.h" />
+    <ClInclude Include="..\include\Decodes.h" />
+    <ClInclude Include="..\include\Encodes.h" />
+    <ClInclude Include="..\include\TDMacro.h" />
+    <ClInclude Include="..\include\Values.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

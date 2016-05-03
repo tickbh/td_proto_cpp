@@ -210,4 +210,7 @@ int main(int argc, char *argv[]) {
 	test_encode_map();
 	test_encode_array_u8();
 	test_base_proto();
+
+
+	std::cout << "------ success test proto cpp ------" << std::endl;
 }
