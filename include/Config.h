@@ -1,6 +1,7 @@
 #ifndef _TD_PROTO_CONFIG_H_
 #define _TD_PROTO_CONFIG_H_
 
+#include "Values.h"
 #include "TDMacro.h"
 #include <string>
 #include <vector>
