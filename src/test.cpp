@@ -1,8 +1,5 @@
-#include "Values.h"
-#include "Config.h"
-#include "Buffer.h"
-#include "Decodes.h"
-#include "Encodes.h"
+#include "Proto.h"
+
 #include <iostream>
 #include <string>
 
