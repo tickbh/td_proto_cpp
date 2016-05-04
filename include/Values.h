@@ -267,6 +267,7 @@ namespace td_proto {
 			default:
 				break;
 			}
+			this->sub_type = TYPE_NIL;
 		}
 
 		//当指针引用的栈变量的时候，我们不能析构这个指针
