@@ -84,6 +84,7 @@
     <ClInclude Include="..\include\Config.h" />
     <ClInclude Include="..\include\Decodes.h" />
     <ClInclude Include="..\include\Encodes.h" />
+    <ClInclude Include="..\include\Proto.h" />
     <ClInclude Include="..\include\TDMacro.h" />
     <ClInclude Include="..\include\Values.h" />
   </ItemGroup>

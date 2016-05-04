@@ -6,7 +6,7 @@ namespace td_proto {
 
 	bool encode_field(Buffer& buffer, Config& config, Values& value);
 
-	bool encode_number(Buffer& buffer, Values& value) {
+	static bool encode_number(Buffer& buffer, Values& value) {
 		switch (value.sub_type)
 		{
 		case TYPE_U8:
@@ -39,13 +39,13 @@ namespace td_proto {
 	}
 
 
-	bool write_str_field(Buffer& buffer, const char* pattern) {
+	static bool write_str_field(Buffer& buffer, const char* pattern) {
 		encode_number(buffer, Values((u16)0));
 		encode_number(buffer, Values((u16)get_type_by_name(pattern)));
 		return true;
 	}
 
-	bool write_field(Buffer& buffer, Field* field) {
+	static bool write_field(Buffer& buffer, Field* field) {
 		if (field == nullptr) {
 			return false;
 		}
@@ -54,7 +54,7 @@ namespace td_proto {
 		return true;
 	}
 
-	bool encode_str_raw(Buffer& buffer, Values& value) {
+	static bool encode_str_raw(Buffer& buffer, Values& value) {
 		switch (value.sub_type)
 		{
 		case TYPE_STR:
@@ -71,7 +71,7 @@ namespace td_proto {
 		return true;
 	}
 
-	bool encode_map(Buffer& buffer, Config& config, Values& value) {
+	static bool encode_map(Buffer& buffer, Config& config, Values& value) {
 		switch (value.sub_type) {
 		case TYPE_MAP: {
 			for (auto& iter : *value._map) {
@@ -89,7 +89,7 @@ namespace td_proto {
 		return true;
 	}
 
-	bool encode_field(Buffer& buffer, Config& config, Values& value) {
+	static bool encode_field(Buffer& buffer, Config& config, Values& value) {
 		write_str_field(buffer, get_name_by_type(value.sub_type));
 		switch (value.sub_type)
 		{
@@ -140,7 +140,7 @@ namespace td_proto {
 		return true;
 	}
 
-	bool encode_field(Buffer& buffer, Config& config, std::string& name, std::vector<Values>& infos) {
+	static bool encode_field(Buffer& buffer, Config& config, std::string& name, std::vector<Values>& infos) {
 		auto proto = config.get_proto_by_name(name);
 		if (!proto) {
 			return false;
@@ -157,7 +157,7 @@ namespace td_proto {
 		return buffer.isVaild();
 	}
 
-	bool encode_proto(Buffer& buffer, Config& config, std::string name, std::vector<Values>& infos) {
+	static bool encode_proto(Buffer& buffer, Config& config, std::string name, std::vector<Values>& infos) {
 		auto proto = config.get_proto_by_name(name);
 		if (!proto) {
 			return false;

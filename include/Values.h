@@ -7,49 +7,49 @@
 
 namespace td_proto {
 
-	const u16 TYPE_NIL = 0;
-	const u16 TYPE_U8 = 1;
-	const u16 TYPE_I8 = 2;
-	const u16 TYPE_U16 = 3;
-	const u16 TYPE_I16 = 4;
-	const u16 TYPE_U32 = 5;
-	const u16 TYPE_I32 = 6;
-	const u16 TYPE_FLOAT = 7;
-	const u16 TYPE_STR = 8;
-	const u16 TYPE_RAW = 9;
-	const u16 TYPE_MAP = 10;
-	const u16 TYPE_AU8 = 21;
-	const u16 TYPE_AI8 = 22;
-	const u16 TYPE_AU16 = 23;
-	const u16 TYPE_AI16 = 24;
-	const u16 TYPE_AU32 = 25;
-	const u16 TYPE_AI32 = 26;
-	const u16 TYPE_AFLOAT = 27;
-	const u16 TYPE_ASTR = 28;
-	const u16 TYPE_ARAW = 29;
-	const u16 TYPE_AMAP = 30;
+	static const u16 TYPE_NIL = 0;
+	static const u16 TYPE_U8 = 1;
+	static const u16 TYPE_I8 = 2;
+	static const u16 TYPE_U16 = 3;
+	static const u16 TYPE_I16 = 4;
+	static const u16 TYPE_U32 = 5;
+	static const u16 TYPE_I32 = 6;
+	static const u16 TYPE_FLOAT = 7;
+	static const u16 TYPE_STR = 8;
+	static const u16 TYPE_RAW = 9;
+	static const u16 TYPE_MAP = 10;
+	static const u16 TYPE_AU8 = 21;
+	static const u16 TYPE_AI8 = 22;
+	static const u16 TYPE_AU16 = 23;
+	static const u16 TYPE_AI16 = 24;
+	static const u16 TYPE_AU32 = 25;
+	static const u16 TYPE_AI32 = 26;
+	static const u16 TYPE_AFLOAT = 27;
+	static const u16 TYPE_ASTR = 28;
+	static const u16 TYPE_ARAW = 29;
+	static const u16 TYPE_AMAP = 30;
 
-	const char* STR_TYPE_NIL = "nil";
-	const char* STR_TYPE_U8 = "u8";
-	const char* STR_TYPE_I8 = "i8";
-	const char* STR_TYPE_U16 = "u16";
-	const char* STR_TYPE_I16 = "i16";
-	const char* STR_TYPE_U32 = "u32";
-	const char* STR_TYPE_I32 = "i32";
-	const char* STR_TYPE_FLOAT = "float";
-	const char* STR_TYPE_STR = "str";
-	const char* STR_TYPE_RAW = "raw";
-	const char* STR_TYPE_MAP = "map";
-	const char* STR_TYPE_AU8 = "u8[]";
-	const char* STR_TYPE_AI8 = "i8[]";
-	const char* STR_TYPE_AU16 = "u16[]";
-	const char* STR_TYPE_AI16 = "i16[]";
-	const char* STR_TYPE_AU32 = "u32[]";
-	const char* STR_TYPE_AI32 = "i32[]";
-	const char* STR_TYPE_AFLOAT = "float[]";
-	const char* STR_TYPE_ASTR = "str[]";
-	const char* STR_TYPE_ARAW = "raw[]";
-	const char* STR_TYPE_AMAP = "map[]";
+	static const char* STR_TYPE_NIL = "nil";
+	static const char* STR_TYPE_U8 = "u8";
+	static const char* STR_TYPE_I8 = "i8";
+	static const char* STR_TYPE_U16 = "u16";
+	static const char* STR_TYPE_I16 = "i16";
+	static const char* STR_TYPE_U32 = "u32";
+	static const char* STR_TYPE_I32 = "i32";
+	static const char* STR_TYPE_FLOAT = "float";
+	static const char* STR_TYPE_STR = "str";
+	static const char* STR_TYPE_RAW = "raw";
+	static const char* STR_TYPE_MAP = "map";
+	static const char* STR_TYPE_AU8 = "u8[]";
+	static const char* STR_TYPE_AI8 = "i8[]";
+	static const char* STR_TYPE_AU16 = "u16[]";
+	static const char* STR_TYPE_AI16 = "i16[]";
+	static const char* STR_TYPE_AU32 = "u32[]";
+	static const char* STR_TYPE_AI32 = "i32[]";
+	static const char* STR_TYPE_AFLOAT = "float[]";
+	static const char* STR_TYPE_ASTR = "str[]";
+	static const char* STR_TYPE_ARAW = "raw[]";
+	static const char* STR_TYPE_AMAP = "map[]";
 
 	struct cmp_str
 	{
@@ -84,7 +84,7 @@ namespace td_proto {
 
 	static std::map<u16, const char*> HASH_INT_STR;
 
-	u16 get_type_by_name(const char* name) {
+	static u16 get_type_by_name(const char* name) {
 		auto iter = HASH_STR_INT.find(name);
 		if (iter == HASH_STR_INT.end()) {
 			return 0;
@@ -92,7 +92,7 @@ namespace td_proto {
 		return iter->second;
 	}
 
-	const char* get_name_by_type(u16 index) {
+	static const char* get_name_by_type(u16 index) {
 		if (HASH_INT_STR.empty()) {
 			for (auto iter : HASH_STR_INT)
 			{
@@ -168,35 +168,12 @@ namespace td_proto {
 			}
 		}
 		~Values() {
-			switch (this->sub_type)
-			{
-			case TYPE_STR:
-				delete _str;
-				break;
-			case TYPE_RAW:
-				delete _raw;
-				break;
-			case TYPE_MAP:
-				delete _map;
-				break;
-			case TYPE_AU8:
-			case TYPE_AI8:
-			case TYPE_AU16:
-			case TYPE_AU32:
-			case TYPE_AI32:
-			case TYPE_AFLOAT:
-			case TYPE_ASTR:
-			case TYPE_ARAW:
-			case TYPE_AMAP:
-				delete _array;
-				break;
-			default:
-				break;
-			}
+			free();
 		}
 
 		void move(Values& other)
 		{
+			free();
 			this->sub_type = other.sub_type;
 			switch (other.sub_type)
 			{
@@ -262,6 +239,34 @@ namespace td_proto {
 		Values& operator= (Values&& other) {
 			move(other);
 			return *this;
+		}
+
+		void free() {
+			switch (this->sub_type)
+			{
+			case TYPE_STR:
+				delete _str;
+				break;
+			case TYPE_RAW:
+				delete _raw;
+				break;
+			case TYPE_MAP:
+				delete _map;
+				break;
+			case TYPE_AU8:
+			case TYPE_AI8:
+			case TYPE_AU16:
+			case TYPE_AU32:
+			case TYPE_AI32:
+			case TYPE_AFLOAT:
+			case TYPE_ASTR:
+			case TYPE_ARAW:
+			case TYPE_AMAP:
+				delete _array;
+				break;
+			default:
+				break;
+			}
 		}
 
 		//当指针引用的栈变量的时候，我们不能析构这个指针

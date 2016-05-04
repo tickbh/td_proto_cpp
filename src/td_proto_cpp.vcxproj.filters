@@ -41,5 +41,8 @@
     <ClInclude Include="..\include\Decodes.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Proto.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
