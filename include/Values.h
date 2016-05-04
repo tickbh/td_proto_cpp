@@ -257,9 +257,11 @@ namespace td_proto {
 		}
 		Values& operator= (Values& other) {
 			move(other);
+			return *this;
 		}
 		Values& operator= (Values&& other) {
 			move(other);
+			return *this;
 		}
 
 		//当指针引用的栈变量的时候，我们不能析构这个指针
