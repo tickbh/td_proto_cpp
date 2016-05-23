@@ -13,7 +13,7 @@ namespace td_proto {
 	break; \
 }
 
-	extern Values decode_field(Buffer& buffer, Config& config);
+	static Values decode_field(Buffer& buffer, Config& config);
 
 	static Values decode_number(Buffer& buffer, u16 pattern) {
 		CHECK_RETURN_BUFFER_VAILD(Values());

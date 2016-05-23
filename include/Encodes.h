@@ -4,7 +4,7 @@
 #include "Values.h"
 namespace td_proto {
 
-	bool encode_field(Buffer& buffer, Config& config, Values& value);
+	static bool encode_field(Buffer& buffer, Config& config, Values& value);
 
 	static bool encode_number(Buffer& buffer, Values& value) {
 		switch (value.sub_type)
