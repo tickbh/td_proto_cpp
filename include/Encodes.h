@@ -39,6 +39,12 @@ namespace td_proto {
 	}
 
 
+	static bool encode_number(Buffer& buffer, Values&& value) {
+		Values newValue = std::move(value);
+		return encode_number(buffer, newValue);
+	}
+
+
 	static bool write_str_field(Buffer& buffer, const char* pattern) {
 		encode_number(buffer, Values((u16)0));
 		encode_number(buffer, Values((u16)get_type_by_name(pattern)));
@@ -69,6 +75,11 @@ namespace td_proto {
 			std::terminate();
 		}
 		return true;
+	}
+
+	static bool encode_str_raw(Buffer& buffer, Values&& value) {
+		Values newValue = std::move(value);
+		return encode_str_raw(buffer, newValue);
 	}
 
 	static bool encode_map(Buffer& buffer, Config& config, Values& value) {

@@ -55,7 +55,7 @@ namespace td_proto {
 	{
 		bool operator()(char const *a, char const *b)
 		{
-			return std::strcmp(a, b) < 0;
+			return strcmp(a, b) < 0;
 		}
 	};
 
@@ -225,9 +225,9 @@ namespace td_proto {
 			other.sub_type = TYPE_NIL;
 		}
 
-		Values(Values& other) {
-			move(other);
-		}
+		//Values(Values& other) {
+		//	move(other);
+		//}
 		Values(Values&& other)
 		{
 			move(other);

@@ -13,7 +13,7 @@ namespace td_proto {
 	break; \
 }
 
-	Values decode_field(Buffer& buffer, Config& config);
+	extern Values decode_field(Buffer& buffer, Config& config);
 
 	static Values decode_number(Buffer& buffer, u16 pattern) {
 		CHECK_RETURN_BUFFER_VAILD(Values());
@@ -43,7 +43,7 @@ namespace td_proto {
 	}
 	
 	static Field read_field(Buffer& buffer) {
-		CHECK_RETURN_BUFFER_VAILD(Field(0, TYPE_NIL));
+		CHECK_RETURN_BUFFER_VAILD(Field(0, STR_TYPE_NIL));
 		auto index = decode_number(buffer, TYPE_U16)._u16;
 		auto pattern = decode_number(buffer, TYPE_U16)._u16;
 		return Field(index, get_name_by_type(pattern));
@@ -98,7 +98,7 @@ namespace td_proto {
 			if ( name.size() == 0 ) {
 				continue;
 			}
-			map->insert(std::make_pair(name, sub_value));
+			map->insert(std::make_pair(name, std::move(sub_value)));
 		}
 		return Values();
 	}
