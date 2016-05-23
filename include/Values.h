@@ -225,16 +225,9 @@ namespace td_proto {
 			other.sub_type = TYPE_NIL;
 		}
 
-		//Values(Values& other) {
-		//	move(other);
-		//}
-		Values(Values&& other)
+		Values(Values&& other) : sub_type(0)
 		{
 			move(other);
-		}
-		Values& operator= (Values& other) {
-			move(other);
-			return *this;
 		}
 		Values& operator= (Values&& other) {
 			move(other);

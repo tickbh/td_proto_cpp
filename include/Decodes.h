@@ -164,9 +164,8 @@ namespace td_proto {
 		return decode_by_field(buffer, config, field);
 	}
 
-	static std::tuple<std::string, std::vector<Values>> decode_proto(Buffer& buffer, Config& config) {
+	static std::string decode_proto(Buffer& buffer, Config& config, std::vector<Values>& result) {
 		auto name_value = decode_str_raw(buffer, TYPE_STR);
-		std::vector<Values> value;
 		while (true)
 		{
 			auto sub_value = decode_field(buffer, config);
@@ -174,19 +173,19 @@ namespace td_proto {
 				break;
 			}
 			CHECK_BREAK_BUFFER_VAILD();
-			value.push_back(std::move(sub_value));
+			result.push_back(std::move(sub_value));
 		}
 
 		auto proto = config.get_proto_by_name(*name_value._str);
 		if (proto == NULL) {
 			buffer.setVaild(false);
-			return std::move(std::make_pair(*name_value._str, std::move(value)));
+			return *name_value._str;
 		}
-		if (proto->args.size() != value.size()) {
+		if (proto->args.size() != result.size()) {
 			buffer.setVaild(false);
-			return std::move(std::make_pair(*name_value._str, std::move(value)));
+			return *name_value._str;
 		}
-		return std::move(std::make_pair(*name_value._str, std::move(value)));
+		return *name_value._str;
 
 	}
 

@@ -184,14 +184,14 @@ void test_base_proto() {
 	array.push_back(std::move(value_map));
 	td_proto::encode_proto(buffer, config, "cmd_test_op", array);
 
-	auto ret = td_proto::decode_proto(buffer, config);
+	std::vector<td_proto::Values> val;
+	auto ret = td_proto::decode_proto(buffer, config, val);
 	assert(buffer.isVaild());
-	assert(std::get<0>(ret) == "cmd_test_op");
-	auto& val = std::get<1>(ret);
+	assert(ret == "cmd_test_op");
 	assert(val.size() == 1);
-	assert(val[0]._map->size() == 2);
-	assert(strcmp(val[0]._map->at("name")._str->c_str(), hash_value->at("name")._str->c_str()) == 0);
-	assert(val[0]._map->at("index")._u16 == hash_value->at("index")._u16);
+	assert(val.at(0)._map->size() == 2);
+	assert(strcmp(val.at(0)._map->at("name")._str->c_str(), hash_value->at("name")._str->c_str()) == 0);
+	assert(val.at(0)._map->at("index")._u16 == hash_value->at("index")._u16);
 	std::cout << "success test test_base_proto" << std::endl;
 }
 
