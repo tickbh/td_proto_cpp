@@ -72,9 +72,10 @@ namespace td_proto {
 			}
 
 			auto vecs = new std::vector<char>(len);
+			auto &vecsRef = *vecs;
 			u8* value = new u8[len];
 			buffer.read(value, len);
-			memcpy(&vecs[0], value, len);
+			memcpy(&vecsRef[0], value, len);
 			return Values(vecs);
 		}
 		default:
